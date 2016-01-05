@@ -1,29 +1,55 @@
+/**
+ * Strategy pattern. Change the algorithm constant below to use different sort algorithms: BUBBLE_SORT, QUICK_SORT implemented for now.
+ * The Class itself is also a singleton and implements a Factory method in createSortInstance(...)
+ */
+
 package javatest;
 
 import java.util.List;
 
-public class UserSortStrategy implements UserSort {
+public class UserSortStrategy {
   private static final String BUBBLE_SORT = "BubbleSort";
 
-  private String algorithm = BUBBLE_SORT;
+  private static final String QUICK_SORT = "QuickSort";
+
+  private static String algorithm = BUBBLE_SORT; // default
+
+  private static UserSortStrategy instance = null; // singleton
   
-  private UserSort sortInstance = null;
+  private UserSortStrategy() {
+    // Singleton
+  }
   
-  public UserSortStrategy(List<User> users) {
-    if (algorithm == BUBBLE_SORT) {
-      sortInstance = new UserSortBubble(users);
+  public static UserSortStrategy getInstance() {
+    if (instance == null) {
+      instance = new UserSortStrategy();
     }
+    
+    return instance;
+  }
+  
+  public static String getAlgorithm() {
+    return algorithm;
   }
 
-  public List<User> sortByName() {
-    return sortInstance.sortByName();
+  public void setAlgorithm(String algorithm) {
+    UserSortStrategy.algorithm = algorithm;
   }
+  
+  // Factory method
+  public UserSort createSortInstance(List<User> users) {
+    UserSort sortInstance = null;
+    
+    switch (algorithm) {
+    case BUBBLE_SORT:
+      sortInstance = new UserSortBubble(users);
+      break;
 
-  public List<User> sortByEmail() {
-    return sortInstance.sortByEmail();
-  }
-
-  public List<User> sortById() {
-    return sortInstance.sortById();
+    case QUICK_SORT:
+      sortInstance = new UserSortQuick(users);
+      break;
+    }
+    
+    return sortInstance;
   }
 }

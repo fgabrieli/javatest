@@ -1,85 +1,74 @@
 /**
- * Bubble sort implementation.
+ * Rough implementation of the BubbleSort algorithm.
  */
 
 package javatest;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+// Remove comment to use the Iterator implementation below in the sort() method
+// import java.util.Iterator;
+
 import java.util.List;
 
-public class UserSortBubble implements UserSort {
-  private List<User> users;
-
-  private interface SortCallbackInterface {
-    boolean isBigger(User user1, User user2);
-  }
+public class UserSortBubble extends UserSort {
 
   public UserSortBubble(List<User> users) {
-    this.users = users;
+    super(users);
   }
 
-  private List<User> sortUsers(SortCallbackInterface callback) {
-    List<User> sorted = new LinkedList<User>();
-    sorted.addAll(users);
-    
-    sort(sorted, callback);
-    
-    return sorted;
-  }
-  
-  private void sort(List<User> sorted, SortCallbackInterface callback) {
-    Iterator<User> it = sorted.iterator();
-    int index = 0;
+  public List<User> sort(List<User> entries, SortCallbackInterface callback) {
+
+    // NOTE: i wanted to use a for loop here but below is the implementation
+    // with an Iterator (remove the comments and ctrl+shift+f to indent)
+
     boolean swapped = false;
-    while (it.hasNext()) {
-      User user1 = it.next();
+    for (int index = 0; index < entries.size() - 1; index++) {
+      User user1 = entries.get(index);
+      User user2 = entries.get(index + 1);
 
-      index++;
+      boolean isBigger = (callback.compare(user1, user2) > 0);
+      if (isBigger) {
+        User temp = user2; // save reference
+        entries.set(index + 1, user1);
+        entries.set(index, temp);
 
-      if (it.hasNext()) {
-        User user2 = sorted.get(index);
-
-        if (callback.isBigger(user1, user2)) {
-          User temp = user2;
-          sorted.set(index, user1);
-          sorted.set(index - 1, temp);
-
-          swapped = true;
-        }
+        swapped = true;
       }
     }
 
     if (swapped == true) {
-      sort(sorted, callback);
-    } else {
-      // stop recursion
+      entries = sort(entries, callback);
     }
-  }
-  
-  public class SortCallbackByName implements SortCallbackInterface {
-    public boolean isBigger(User user1, User user2) {
-      String str1 = user1.getFirstName() + user1.getLastName();
-      String str2 = user2.getFirstName() + user2.getLastName();
-      return (str1.compareTo(str2) > 0);
-    }
-  }
 
-  public List<User> sortByName() {
-    return sortUsers(new SortCallbackByName());
-  }
+    return entries;
 
-  public class SortCallbackByEmail implements SortCallbackInterface {
-    public boolean isBigger(User user1, User user2) {
-      return (user1.getEmail().compareTo(user2.getEmail()) > 0);
-    }
-  }
-
-  public List<User> sortByEmail() {
-    return sortUsers(new SortCallbackByEmail());
-  }
-
-  public List<User> sortById() {
-    return users; // users are ordered by id, this is the default
+    //
+    // Iterator implementation
+    //
+    // Iterator<User> it = entries.iterator();
+    // int index = 0;
+    // boolean swapped = false;
+    // while (it.hasNext()) {
+    // User user1 = it.next();
+    //
+    // index++;
+    //
+    // if (it.hasNext()) {
+    // User user2 = entries.get(index);
+    //
+    // if (callback.compare(user1, user2) > 0) {
+    // User temp = user2;
+    // entries.set(index, user1);
+    // entries.set(index - 1, temp);
+    //
+    // swapped = true;
+    // }
+    // }
+    // }
+    //
+    // if (swapped == true) {
+    // entries = sort(entries, callback);
+    // }
+    //
+    // return entries;
   }
 }

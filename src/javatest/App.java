@@ -1,9 +1,7 @@
 package javatest;
 
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class App {
@@ -11,13 +9,18 @@ public class App {
 
   public static void main(String[] args) {
     Users users = Users.getInstance();
-    users.loadFromCSV(FILENAME);
+    
+    try {
+      users.loadFromCSV(FILENAME);
 
-    Scanner sc = new Scanner(System.in);
+      Scanner sc = new Scanner(System.in);
 
-    while (true) {
-      showOptions();
-      processInput(sc);
+      while (true) {
+        showOptions();
+        processInput(sc);
+      }
+    } catch (UsersException e) {
+      e.printStackTrace();
     }
   }
 
@@ -27,6 +30,9 @@ public class App {
     System.out.println("(2) Search By Email");
     System.out.println("(3) Search By ID");
     System.out.println("(4) List all");
+    System.out.println("(5) Sort by name");
+    System.out.println("(6) Sort by email");
+    System.out.println("(7) Sort by ID");
   }
 
   private static void processInput(Scanner sc) {
@@ -42,7 +48,7 @@ public class App {
 
         System.out.println("Enter the Last name:");
         String lastName = sc.next();
-        
+
         foundUsers = users.searchByName(firstName, lastName);
 
         break;
@@ -51,23 +57,38 @@ public class App {
         System.out.println("Enter the Email:");
 
         String email = sc.next();
-        
+
         foundUsers = users.searchByEmail(email);
 
         break;
 
       case 3:
         System.out.println("Enter the ID:");
-        
+
         int id = sc.nextInt();
 
         foundUsers = users.searchById(id);
-        
+
         break;
 
       case 4:
         foundUsers = users.getAll();
         break;
+        
+      case 5:
+        foundUsers = users.getSortedByName();
+        break;
+        
+      case 6:
+        foundUsers = users.getSortedByEmail();
+        break;
+        
+      case 7:
+        foundUsers = users.getSortedById();
+        break;
+        
+       default:
+         // Nothing to do
       }
 
       if (foundUsers.size() > 0) {

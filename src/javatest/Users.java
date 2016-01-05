@@ -8,7 +8,7 @@ import java.util.Map;
 public class Users {
   static Users instance = null;
 
-  private List<User> users = new LinkedList<User>();
+  private static List<User> users = new LinkedList<User>();
 
   private int lastId = 1;
 
@@ -24,21 +24,26 @@ public class Users {
     return instance;
   }
 
-  public void loadFromCSV(String fileName) {
-    CSV csv = new CSV(fileName);
+  public void loadFromCSV(String fileName) throws UsersException {
+    try {
+      CSV csv = new CSV(fileName);
 
-    List<Map<String, String>> entries = csv.getEntries();
-    Iterator<Map<String, String>> it = entries.iterator();
-    while (it.hasNext()) {
-      Map<String, String> entry = it.next();
+      List<Map<String, String>> entries = csv.getEntries();
+      
+      Iterator<Map<String, String>> it = entries.iterator();
+      while (it.hasNext()) {
+        Map<String, String> entry = it.next();
 
-      User user = new User();
-      user.setId(lastId++);
-      user.setFirstName(entry.get("firstName"));
-      user.setLastName(entry.get("lastName"));
-      user.setEmail(entry.get("email"));
+        User user = new User();
+        user.setId(lastId++);
+        user.setFirstName(entry.get("firstName"));
+        user.setLastName(entry.get("lastName"));
+        user.setEmail(entry.get("email"));
 
-      users.add(user);
+        users.add(user);
+      }
+    } catch (CSVFormatException e) {
+      throw new UsersException("Users could not be loaded from CSV file");
     }
   }
 
@@ -83,5 +88,17 @@ public class Users {
       }
     }
     return result;
+  }
+
+  public List<User> getSortedByName() {
+    return (new UserSortStrategy(users).sortByName());
+  }
+
+  public List<User> getSortedByEmail() {
+    return (new UserSortStrategy(users).sortByEmail());
+  }
+
+  public List<User> getSortedById() {
+    return (new UserSortStrategy(users).sortById());
   }
 }

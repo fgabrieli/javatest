@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class CSV {
   private List<Map<String, String>> entries = new LinkedList<Map<String, String>>();
 
-  public CSV(String fileName) {
+  public CSV(String fileName) throws CSVFormatException {
     List<String> lines = new LinkedList<String>();
     try {
       readFile(fileName, lines);
@@ -34,29 +34,31 @@ public class CSV {
     return entries;
   }
 
-  public void readFile(String fileName, List<String> lines) throws IOException {
+  public void readFile(String fileName, List<String> lines) throws IOException, CSVFormatException {
     Path path = Paths.get(fileName);
 
     BufferedReader reader = Files.newBufferedReader(path);
     String line = null;
     while ((line = reader.readLine()) != null) {
+      line = line.trim();
+      
       Map<String, String> csvData = new HashMap<String, String>();
+      
       parse(line, csvData);
+ 
       entries.add(csvData);
     }
   }
 
-  private void parse(String text, Map<String, String> csvData) {
+  private void parse(String text, Map<String, String> csvData) throws CSVFormatException {
     Pattern p = Pattern.compile("([a-zA-Z@.]+);([a-zA-Z@.]+);([a-zA-Z@.]+)");
     Matcher m = p.matcher(text);
     if (!m.matches()) {
-      throw new CSVFormatError();
+      throw new CSVFormatException("CSV format is wrong");
     } else {
-      while (m.find()) {
-        csvData.put("firstName", m.group(1));
-        csvData.put("lastName", m.group(2));
-        csvData.put("email", m.group(3));
-      }
+      csvData.put("firstName", m.group(1));
+      csvData.put("lastName", m.group(2));
+      csvData.put("email", m.group(3));
     }
   }
 }

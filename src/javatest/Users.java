@@ -5,14 +5,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import sort.WebSort;
+import sort.WebSortFactory;
+import sort.WebSortCallbackInterface;
+
 public class Users {
   static Users instance = null;
 
+  private static final String sortAlgorithm = WebSortFactory.QUICK_SORT;
+  
   private static List<User> users = new LinkedList<User>();
 
   private int lastId = 1;
 
-  private UserSort sortInstance = null;
+  private WebSort sortInstance = null;
 
   private Users() {
     // Singleton
@@ -87,22 +93,65 @@ public class Users {
     }
     return result;
   }
+  
+  private class SortByNameCallback implements WebSortCallbackInterface {
+    public int compare(Object obj1, Object obj2) {
+      User user1 = (User) obj1;
+      User user2 = (User) obj2;
 
-  public List<User> getSortedByName() {
-    return getSortInstance().sortByName();
+      String str1 = user1.getFirstName() + user1.getLastName();
+      String str2 = user2.getFirstName() + user2.getLastName();
+      
+      return str1.compareTo(str2);
+    }
   }
 
+  public List<User> getSortedByName() {
+    WebSort sortInstance = getSortInstance(new SortByNameCallback());
+    List<Object> sorted = sortInstance.sort();
+    
+    return convertSortedToUserType(sorted);
+  }
+
+  private class SortByEmailCallback implements WebSortCallbackInterface {
+    public int compare(Object obj1, Object obj2) {
+      User user1 = (User) obj1;
+      User user2 = (User) obj2;
+
+      return user1.getEmail().compareTo(user2.getEmail());
+    }
+  }
   public List<User> getSortedByEmail() {
-    return getSortInstance().sortByEmail();
+    WebSort sortInstance = getSortInstance(new SortByEmailCallback());
+    List<Object> sorted = sortInstance.sort();
+    
+    return convertSortedToUserType(sorted);
+  }
+
+  private List<User> convertSortedToUserType(List<Object> sorted) {
+    List<User> result = new LinkedList<User>();
+    
+    // Convert to User type, XXX: not sure what's the best approach here to avoid converting two times    
+    Iterator<Object> it = sorted.iterator();
+    while (it.hasNext()) {
+      User user = (User) it.next();
+      result.add(user);
+    }
+
+    return result;
   }
 
   public List<User> getSortedById() {
     return users; // no need to sort here
   }
 
-  private UserSort getSortInstance() {
+  private WebSort getSortInstance(WebSortCallbackInterface callback) {
     if (sortInstance == null) {
-      sortInstance = UserSortStrategy.getInstance().createSortInstance(users);
+      
+      List<Object> sortable = new LinkedList<Object>();
+      sortable.addAll(users);
+
+      sortInstance = WebSortFactory.create(sortAlgorithm, sortable, callback);
     }
 
     return sortInstance;

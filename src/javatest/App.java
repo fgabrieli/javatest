@@ -76,19 +76,19 @@ public class App {
         break;
         
       case 5:
-        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
+//        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
 
         foundUsers = users.getSortedByName();
         break;
         
       case 6:
-        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
+//        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
 
         foundUsers = users.getSortedByEmail();
         break;
         
       case 7:
-        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
+//        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
 
         foundUsers = users.getSortedById();
         break;

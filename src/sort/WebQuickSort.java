@@ -2,31 +2,31 @@
  * Rough implementation of the QuickSort algorithm.
  */
 
-package javatest;
+package sort;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserSortQuick extends UserSort {
+public class WebQuickSort extends WebSort {
 
-  public UserSortQuick(List<User> users) {
-    super(users);
+  public List<Object> sort() {
+    return quickSort(sortable);
   }
-
-  public List<User> sort(List<User> entries, SortCallbackInterface callback) {
-    int size = entries.size();
+  
+  private List<Object> quickSort(List<Object> sortable) {
+    int size = sortable.size();
     int middle = Math.round(size / 2);
 
-    User pivot = entries.get(middle);
+    Object pivot = sortable.get(middle);
 
-    // Create Lists with lesser and bigger entries
-    List<User> lesser = new LinkedList<User>();
-    List<User> bigger = new LinkedList<User>();
+    // Create Lists with lesser and bigger sortable
+    List<Object> lesser = new LinkedList<Object>();
+    List<Object> bigger = new LinkedList<Object>();
 
-    Iterator<User> it = entries.iterator();
+    Iterator<Object> it = sortable.iterator();
     while (it.hasNext()) {
-      User entry = it.next();
+      Object entry = it.next();
 
       if (entry != pivot) {
         boolean isBigger = callback.compare(entry, pivot) > 0;
@@ -39,14 +39,14 @@ public class UserSortQuick extends UserSort {
     }
 
     if (lesser.size() > 1) {
-      lesser = sort(lesser, callback);
+      lesser = quickSort(lesser);
     }
 
     if (bigger.size() > 1) {
-      bigger = sort(bigger, callback);
+      bigger = quickSort(bigger);
     }
 
-    List<User> result = new LinkedList<User>();
+    List<Object> result = new LinkedList<Object>();
     if (lesser.size() > 0) {
       result.addAll(lesser);
     }

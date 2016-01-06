@@ -2,7 +2,7 @@ package sort;
 
 public interface WebSortCallbackInterface {
   /**
-   * Compare two objects to know which one comes first for sorting purposes.
+   * Compare two objects to know how to sort them.
    * 
    * @return < 0 if obj1 < obj2; > 0 if obj1 > obj2; = 0 if obj1 == obj2
    */

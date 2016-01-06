@@ -1,14 +1,18 @@
-/**
- * Abstract class for objectsort implementations. Every sort algorithm will inherit from this one (i.e. objectsortBubble).
- * It implements objectsortInterface.
- */
-
 package sort;
 
 import java.util.List;
 
-public abstract class WebSort implements WebSortInterface {
+public abstract class WebSort {
   protected List<Object> sortable = null;
 
   protected WebSortCallbackInterface callback = null;
+  
+  /**
+   * Should be overridden by child classes. 
+   * 
+   * @return the original sortable by default.
+   */
+  public List<Object> sort() {
+    return sortable;
+  }
 }

@@ -4,12 +4,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import websort.WebSortException;
+
 public class App {
   private static final String FILENAME = "c:\\home\\javatest\\src\\javatest\\address-book.csv";
 
   public static void main(String[] args) {
     Users users = Users.getInstance();
-    
+
     try {
       users.loadFromCSV(FILENAME);
 
@@ -36,8 +38,10 @@ public class App {
   }
 
   private static void processInput(Scanner sc) {
+    boolean found = true;
     List<User> foundUsers = null;
-    Users users = Users.getInstance();
+    
+    Users usersInstance = Users.getInstance();
 
     if (sc.hasNextInt()) {
       int option = sc.nextInt();
@@ -49,7 +53,7 @@ public class App {
         System.out.println("Enter the Last name:");
         String lastName = sc.next();
 
-        foundUsers = users.searchByName(firstName, lastName);
+        foundUsers = usersInstance.searchByName(firstName, lastName);
 
         break;
 
@@ -58,7 +62,7 @@ public class App {
 
         String email = sc.next();
 
-        foundUsers = users.searchByEmail(email);
+        foundUsers = usersInstance.searchByEmail(email);
 
         break;
 
@@ -67,37 +71,43 @@ public class App {
 
         int id = sc.nextInt();
 
-        foundUsers = users.searchById(id);
+        foundUsers = usersInstance.searchById(id);
 
         break;
 
       case 4:
-        foundUsers = users.getAll();
+        foundUsers = usersInstance.getAll();
         break;
-        
+
       case 5:
-//        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
+        try {
+          foundUsers = usersInstance.getSortedByName();
+        } catch (WebSortException e) {
+          found = false;
 
-        foundUsers = users.getSortedByName();
+          System.out.println("Error: " + e.getMessage());
+        }
+
         break;
-        
+
       case 6:
-//        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
+        try {
+          foundUsers = usersInstance.getSortedByEmail();
+        } catch (WebSortException e) {
+          found = false;
 
-        foundUsers = users.getSortedByEmail();
+          System.out.println("Error: " + e.getMessage());
+        }
+
         break;
-        
+
       case 7:
-//        System.out.println("Sorting elements using algorithm: " + UserSortStrategy.getAlgorithm() + "...");
-
-        foundUsers = users.getSortedById();
-        break;
+        foundUsers = usersInstance.getSortedById();
         
-       default:
-         // Nothing to do
+        break;
       }
 
-      if (foundUsers.size() > 0) {
+      if (found && foundUsers.size() > 0) {
         System.out.println("Found " + foundUsers.size() + " entries.");
 
         Iterator<User> it = foundUsers.iterator();

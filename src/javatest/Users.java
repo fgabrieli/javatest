@@ -5,14 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import sort.WebSort;
-import sort.WebSortFactory;
-import sort.WebSortCallbackInterface;
+import websort.WebSort;
+import websort.WebSortCallbackInterface;
+import websort.WebSortException;
+import websort.WebSortFactory;
 
 public class Users {
   static Users instance = null;
 
-  private static final String sortAlgorithm = WebSortFactory.QUICK_SORT;
+  private static final String sortAlgorithm = WebSortFactory.MERGE_SORT;
   
   private static List<User> users = new LinkedList<User>();
 
@@ -106,7 +107,7 @@ public class Users {
     }
   }
 
-  public List<User> getSortedByName() {
+  public List<User> getSortedByName() throws WebSortException {
     WebSort sortInstance = getSortInstance(new SortByNameCallback());
     List<Object> sorted = sortInstance.sort();
     
@@ -121,7 +122,8 @@ public class Users {
       return user1.getEmail().compareTo(user2.getEmail());
     }
   }
-  public List<User> getSortedByEmail() {
+  
+  public List<User> getSortedByEmail() throws WebSortException {
     WebSort sortInstance = getSortInstance(new SortByEmailCallback());
     List<Object> sorted = sortInstance.sort();
     
@@ -145,7 +147,7 @@ public class Users {
     return users; // no need to sort here
   }
 
-  private WebSort getSortInstance(WebSortCallbackInterface callback) {
+  private WebSort getSortInstance(WebSortCallbackInterface callback) throws WebSortException {
     if (sortInstance == null) {
       
       List<Object> sortable = new LinkedList<Object>();

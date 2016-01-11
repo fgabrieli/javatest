@@ -116,7 +116,7 @@ public class App {
         Iterator<User> it = foundUsers.iterator();
         while (it.hasNext()) {
           User user = it.next();
-          user.print();
+          Users.printUser(user);
         }
       }
 

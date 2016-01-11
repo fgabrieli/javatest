@@ -160,4 +160,8 @@ public class Users {
 
     return sortInstance;
   }
+  
+  public static void printUser(User user) {
+    System.out.println("User data => Id: " + user.getId() + ", Name: " + user.getFirstName() + " " + user.getLastName() + ", Email: " + user.getEmail());
+  }
 }

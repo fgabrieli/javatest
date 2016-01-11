@@ -4,8 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fgabrieli.lib.csv.CSVFormatException;
 import com.fgabrieli.lib.websort.WebSortException;
-
+import com.fgabrieli.model.user.User;
+import com.fgabrieli.model.user.Users;
 
 public class App {
   private static final String FILENAME = "c:\\home\\javatest\\data\\address-book.csv";

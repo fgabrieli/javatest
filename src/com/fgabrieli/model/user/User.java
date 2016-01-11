@@ -1,4 +1,4 @@
-package com.fgabrieli.app;
+package com.fgabrieli.model.user;
 
 public class User {
   private int id = 0;

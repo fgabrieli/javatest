@@ -1,4 +1,4 @@
-package com.fgabrieli.app;
+package com.fgabrieli.lib.csv;
 
 import java.io.BufferedReader;
 import java.io.IOException;

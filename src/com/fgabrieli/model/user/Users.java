@@ -1,15 +1,16 @@
-package com.fgabrieli.app;
+package com.fgabrieli.model.user;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.fgabrieli.lib.csv.CSV;
+import com.fgabrieli.lib.csv.CSVFormatException;
 import com.fgabrieli.lib.websort.WebSort;
 import com.fgabrieli.lib.websort.WebSortCallbackInterface;
 import com.fgabrieli.lib.websort.WebSortException;
 import com.fgabrieli.lib.websort.WebSortFactory;
-
 
 public class Users {
   static Users instance = null;

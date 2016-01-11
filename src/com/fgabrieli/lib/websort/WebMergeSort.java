@@ -2,7 +2,7 @@
  * Rough implementation of the MergeSort algorithm.
  */
 
-package com.fgabrieli.tool.websort;
+package com.fgabrieli.lib.websort;
 
 import java.util.Iterator;
 import java.util.LinkedList;

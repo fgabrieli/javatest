@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.fgabrieli.tool.websort.WebSort;
-import com.fgabrieli.tool.websort.WebSortCallbackInterface;
-import com.fgabrieli.tool.websort.WebSortException;
-import com.fgabrieli.tool.websort.WebSortFactory;
+import com.fgabrieli.lib.websort.WebSort;
+import com.fgabrieli.lib.websort.WebSortCallbackInterface;
+import com.fgabrieli.lib.websort.WebSortException;
+import com.fgabrieli.lib.websort.WebSortFactory;
 
 
 public class Users {

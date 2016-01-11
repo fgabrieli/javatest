@@ -2,7 +2,7 @@
  * An algorithm that came up while looking into merge sort, kind of useless :)
  */
 
-package com.fgabrieli.tool.websort;
+package com.fgabrieli.lib.websort;
 
 import java.util.LinkedList;
 import java.util.List;

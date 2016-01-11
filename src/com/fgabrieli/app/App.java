@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-import com.fgabrieli.tool.websort.WebSortException;
+import com.fgabrieli.lib.websort.WebSortException;
 
 
 public class App {

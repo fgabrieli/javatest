@@ -2,7 +2,7 @@
  * Rough implementation of the BubbleSort algorithm.
  */
 
-package com.fgabrieli.tool.websort;
+package com.fgabrieli.lib.websort;
 
 import java.util.List;
 

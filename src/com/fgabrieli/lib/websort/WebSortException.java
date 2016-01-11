@@ -1,4 +1,4 @@
-package com.fgabrieli.tool.websort;
+package com.fgabrieli.lib.websort;
 
 public class WebSortException extends Exception {
   private static final long serialVersionUID = 1L;

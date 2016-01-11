@@ -1,4 +1,4 @@
-package websort;
+package com.fgabrieli.tool.websort;
 
 public interface WebSortCallbackInterface {
   /**

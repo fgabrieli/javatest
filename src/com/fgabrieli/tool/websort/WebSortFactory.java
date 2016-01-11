@@ -1,9 +1,10 @@
-package websort;
+package com.fgabrieli.tool.websort;
 
 import java.util.List;
 
-import websort.WebSort;
-import websort.WebSortCallbackInterface;
+import com.fgabrieli.tool.websort.WebSort;
+import com.fgabrieli.tool.websort.WebSortCallbackInterface;
+
 
 public class WebSortFactory {
   // Available Sort algorithms

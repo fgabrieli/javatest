@@ -1,4 +1,4 @@
-package javatest;
+package com.fgabrieli.javatest;
 
 public class User {
   private int id = 0;

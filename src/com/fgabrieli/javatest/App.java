@@ -1,13 +1,14 @@
-package javatest;
+package com.fgabrieli.javatest;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-import websort.WebSortException;
+import com.fgabrieli.tool.websort.WebSortException;
+
 
 public class App {
-  private static final String FILENAME = "c:\\home\\javatest\\src\\javatest\\address-book.csv";
+  private static final String FILENAME = "c:\\home\\javatest\\data\\address-book.csv";
 
   public static void main(String[] args) {
     Users users = Users.getInstance();

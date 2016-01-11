@@ -1,19 +1,20 @@
-package javatest;
+package com.fgabrieli.javatest;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import websort.WebSort;
-import websort.WebSortCallbackInterface;
-import websort.WebSortException;
-import websort.WebSortFactory;
+import com.fgabrieli.tool.websort.WebSort;
+import com.fgabrieli.tool.websort.WebSortCallbackInterface;
+import com.fgabrieli.tool.websort.WebSortException;
+import com.fgabrieli.tool.websort.WebSortFactory;
+
 
 public class Users {
   static Users instance = null;
 
-  private static final String sortAlgorithm = WebSortFactory.MERGE_SORT;
+  private static final String sortAlgorithm = WebSortFactory.INSERTION_SORT;
   
   private static List<User> users = new LinkedList<User>();
 

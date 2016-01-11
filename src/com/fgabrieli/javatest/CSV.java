@@ -1,4 +1,4 @@
-package javatest;
+package com.fgabrieli.javatest;
 
 import java.io.BufferedReader;
 import java.io.IOException;

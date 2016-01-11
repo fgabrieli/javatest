@@ -1,4 +1,4 @@
-package com.fgabrieli.javatest;
+package com.fgabrieli.app;
 
 public class CSVFormatException extends Exception {
   private static final long serialVersionUID = 1L;

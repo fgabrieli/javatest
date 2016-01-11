@@ -1,4 +1,4 @@
-package com.fgabrieli.javatest;
+package com.fgabrieli.app;
 
 import java.util.Iterator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.fgabrieli.javatest;
+package com.fgabrieli.app;
 
 public interface SortCallbackInterface {
   /**
